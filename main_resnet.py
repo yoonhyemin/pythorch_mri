@@ -22,13 +22,13 @@ import random
 from custom_transform import CustomResize
 from custom_transform import CustomToTensor
 
-from AD_Dataset import AD_Dataset
+#from AD_Dataset import AD_Dataset
 from AD_2DSlicesData import AD_2DSlicesData
 
-from AlexNet2D import alexnet
-from AlexNet3D import AlexNet
+#from AlexNet2D import alexnet
+#from AlexNet3D import AlexNet
 
-import ResNet2D
+#import ResNet2D
 import ResNet3D
 
 
@@ -38,7 +38,7 @@ logging.basicConfig(
 
 parser = argparse.ArgumentParser(description="Starter code for JHU CS661 Computer Vision HW3.")
 
-parser.add_argument("--network_type", "--nt", default="AlexNet2D", choices=["AlexNet2D", "AlexNet3D", "ResNet2D", "ResNet3D"],
+parser.add_argument("--network_type", "--nt", default="ResNet3D", choices=["AlexNet2D", "AlexNet3D", "ResNet2D", "ResNet3D"],
                     help="Deep network type. (default=AlexNet)")
 parser.add_argument("--load",
                     help="Load saved network weights.")
@@ -68,21 +68,22 @@ parser.add_argument("--gpuid", default=[0], nargs='+', type=int,
 
 def main(options):
     # Path configuration
-    TRAINING_PATH = 'train.txt'
-    TESTING_PATH = 'test.txt'
-    IMG_PATH = './Image'
+    TRAINING_PATH = 'C:/Users/Administrator/Desktop/pytorch_gpu/train.txt'
+    TESTING_PATH = 'C:/Users/Administrator/Desktop/pytorch_gpu/train.txt'
+    IMG_PATH = 'C:/Users/Administrator/Desktop/pytorch_gpu/210_bet_nii_image'
 
     if options.network_type == 'AlexNet3D':
         trg_size = (224, 224, 224)
     elif options.network_type == 'AlexNet2D':
         trg_size = (224, 224)
     elif options.network_type == 'ResNet3D':
-        trg_size = (110, 110, 110)
+        trg_size = (1, 110, 110, 110)
     elif options.network_type == 'ResNet2D':
         trg_size = (224, 224)
     
     if options.network_type == "AlexNet3D" or "ResNet3D":
-        transformations = transforms.Compose([CustomResize(options.network_type, trg_size),
+        transformations = transforms.Compose([#transforms.Resize((110, 110, 110)),
+                                              CustomResize(options.network_type, trg_size),
                                               CustomToTensor(options.network_type)
                                         ])
         dset_train = AD_2DSlicesData(IMG_PATH, TRAINING_PATH, transformations)

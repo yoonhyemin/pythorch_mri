@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 from skimage.transform import resize 
 from PIL import Image
 
-
+'''''
 AX_F = 0.32
 COR_F = 0.56
 SAG_F =  0.56
@@ -16,7 +16,7 @@ NON_SAG = (0, 1)
 AX_SCETION = "[slice_i, :, :]"
 COR_SCETION = "[:, slice_i, :]"
 SAG_SCETION = "[:, :, slice_i]"
-
+'''
 
 class AD_2DSlicesData(Dataset):
     """labeled Faces in the Wild dataset."""
@@ -45,14 +45,15 @@ class AD_2DSlicesData(Dataset):
         image_path = os.path.join(self.root_dir, img_name)
         image = nib.load(image_path)
 
-        if img_label == 'Normal':
+        if img_label == 'CN':
             label = 0
         elif img_label == 'AD':
             label = 1
-        elif img_label == 'MCI':
-            label = 2
+        #elif img_label == 'MCI':
+        #    label = 2
 
-        image = sag3Slice(image)
+        #image = sag3Slice(image)
+        image = np.array(image.get_data()) #sag3Slice()에서 가져옴
         image = Image.fromarray(image.astype(np.uint8), 'RGB')
         if self.transform:
             image = self.transform(image)
@@ -61,6 +62,7 @@ class AD_2DSlicesData(Dataset):
         
         return sample
 
+'''
 def getSlice(image_array, mean_direc, fraction, section):
     mean_array = np.ndarray.mean(image_array, axis = mean_direc)
     first_p = list(mean_array).index(filter(lambda x: x>0, mean_array)[0])
@@ -140,7 +142,7 @@ def axcosag(image, size = (110, 110)):
 
 def cutMargin2D(image_2D):
     row_mean = np.ndarray.mean(image_2D, axis = 1)
-    print row_mean
+    print("row_mean")
     first_R = list(row_mean).index(filter(lambda x: x>0, row_mean)[0])
     last_R = list(row_mean).index(filter(lambda x: x>0, row_mean)[-1])
     col_mean = np.ndarray.mean(image_2D, axis = 0)
@@ -167,7 +169,7 @@ def plotColorImage(image):
 def plotGrayImage(image):
     plt.imshow(image.astype(np.uint8), cmap = 'gray')
     plt.show()
-
+'''
 
 
 

@@ -19,7 +19,8 @@ class CustomResize(object):
         return resized_img
 
     def resize_image(self, img, trg_size):
-        img_array = np.asarray(img.get_data())
+        #img_array = np.asarray(img.get_data())
+        img_array = np.asarray(img)
         res = resize(img_array, trg_size, mode='reflect', anti_aliasing=False, preserve_range=True)
 
         # type check
@@ -38,8 +39,10 @@ class CustomToTensor(object):
 
         if isinstance(pic, np.ndarray):
             
-            img = torch.from_numpy(pic.transpose((2, 0, 1)))
-            
+            #img = torch.from_numpy(pic.transpose((2, 0, 1)))
+            #img = torch.from_numpy(pic.transpose((0, 1, 2)))
+            #img = torch.from_numpy(pic.transpose())
+            img = torch.from_numpy(pic)
             # backward compatibility
             return img.float().div(255)
 
