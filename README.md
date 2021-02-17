@@ -1,5 +1,8 @@
 # AD-Prediction
 
+###sogang hyemin file download link
+https://drive.google.com/drive/folders/1dGsQxV7lbPwg2dugo36BnCPrTBt8dTca?usp=sharing
+
 Convolutional Neural Networks for Alzheimer's Disease Prediction Using Brain MRI Image
 
 ## Abstract
